@@ -1,6 +1,6 @@
 <?php
 
-include 'inc/header.php';
+include 'C:\xampp\htdocs\extratech-php\inc\header.php';
 
 ?>
 
@@ -69,6 +69,6 @@ include 'inc/header.php';
 
 <?php
 
-include 'inc/footer.php';
+include 'C:\xampp\htdocs\extratech-php\inc\footer.php';
 
 ?>
