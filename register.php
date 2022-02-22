@@ -1,5 +1,19 @@
 <?php include 'inc/header.php' ?>
 
+
+
+<?php
+
+
+if (isset($_POST['register'])) {
+       
+    var_dump($_POST);
+    exit;
+  }
+
+
+?>
+
 <div class="container">
 
       <nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
@@ -33,7 +47,7 @@
         <div class="cad-body">
             <div style="width:600px; margin:0px auto">
 
-            <form class="" action="" method="post">
+            <form class="" action="register.php" method="post">
                 <div class="form-group pt-3">
                   <label for="name">Your name</label>
                   <input type="text" name="name"  class="form-control">
