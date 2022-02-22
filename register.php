@@ -1,4 +1,15 @@
 <?php include 'inc/header.php' ?>
+<?php  
+ if (isset($_POST['register'])) {
+
+  var_dump($_POST);
+  exit;
+}
+
+
+
+
+?>
 
 <div class="container">
 
