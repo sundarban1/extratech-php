@@ -25,21 +25,13 @@ if (isset($_POST['register'])) {
     $errorMsg = 'Your mobile number is not valid.';
   } elseif(empty($password) || strlen($password) < 6){
     $errorMsg = 'Your password is empty or less than six letters.';
-  }else{
+  }else{    
+    $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
+    VALUES ('$name', '$username', '$email', '$mobile', '$password')";
 
-    $data = [
-      'name' => $name,
-      'username' => $username,
-      'email' => $email,
-      'mobile' => $mobile,
-      'password' => $password
-    ];
-    
-    $sql = "INSERT INTO users (`name`, `username`, `email`, `mobile`, `password`) 
-    VALUES (:name, :username, :email, :mobile, :password)";
-
-    $conn->prepare($sql)->execute();
-            
+    if($conn->prepare($sql)->execute()){
+      $errorMsg = 'You have successfully registered.';
+    }          
   }
 }
 ?>
