@@ -2,9 +2,6 @@
 
 <?php
 if (isset($_POST['register'])) {
-
-  $errorMsg = '';
-
   $name = trim($_POST['name']);
   $username = $_POST['username'];
   $email = $_POST['email'];
@@ -15,6 +12,16 @@ if (isset($_POST['register'])) {
     $errorMsg = "Your name is empty or invalid.";
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
+  } elseif(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+    $errorMsg = "Your email is empty or invalid.";
+  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$phoneNumber)){
+    $errorMsg = 'Your mobile number is not valid.';
+  } elseif(empty($password) || strlen($password) < 6){
+    $errorMsg = 'Your password is empty or less than six letters.';
+  }else{
+
+    // insert data into databse;
+
   }
 }
 ?>
@@ -67,7 +74,7 @@ if (isset($_POST['register'])) {
           </div>
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" name="email" class="form-control">
+            <input type="text" name="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="mobile">Mobile Number</label>
