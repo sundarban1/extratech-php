@@ -7,7 +7,7 @@
   <script src="assets/bootstrap.min.js"></script>
   <script src="assets/jquery.dataTables.min.js"></script>
   <script src="assets/dataTables.bootstrap4.min.js"></script>
-<<<<<<< HEAD
+
 </html>
 
 

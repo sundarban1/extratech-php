@@ -2,7 +2,7 @@
 <?php  
  if (isset($_POST['register'])) {
 
-  var_dump($_POST);
+  print_r($_POST);
   exit;
 }
 
