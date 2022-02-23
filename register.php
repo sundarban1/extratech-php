@@ -14,20 +14,21 @@ if (isset($_POST['register'])) {
   $mobile = $_POST['mobile'];
   $password = $_POST['password'];
 
+
   if (empty($name) || !preg_match("/^[a-zA-z]*$/", $name)) {
     $errorMsg = "Your name is empty or invalid.";
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
   } elseif(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
     $errorMsg = "Your email is empty or invalid.";
-  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$phoneNumber)){
+  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$mobile)){
     $errorMsg = 'Your mobile number is not valid.';
   } elseif(empty($password) || strlen($password) < 6){
     $errorMsg = 'Your password is empty or less than six letters.';
   }else{
 
-
-
+    $sql = "INSERT INTO `users` ('rabin', 'test123', 'helo@yaho.com', '1234567890', '123456')";
+            $conn->exec($sql);
   }
 }
 ?>
