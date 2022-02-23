@@ -2,9 +2,18 @@
 
 <?php 
 
-if (issey($_POst['register'])){
-    print_r($_POST['name']);
-    exit;
+if (isset($_POst['register'])){
+
+  $errorMsg = '';
+
+  $name = trim($_POST['name']);
+  $username = ($_POST['username']);
+  $email = ($_POST['email']);
+  $mobile = ($_POST['mobile']);
+  $password = ($_POST['password']);
+
+ 
+    
 }
 ?>
 
@@ -38,11 +47,16 @@ if (issey($_POst['register'])){
  <div class="card ">
    <div class="card-header">
           <h3 class='text-center'>User Registration</h3>
+          <?php if (!empty($errorMsg)){
+          ?>
+                <p class="text-center"><?php echo $errorMsg; ?></p>
+            <?php
+          }?>
         </div>
         <div class="cad-body">
             <div style="width:600px; margin:0px auto">
 
-            <form class="" action="register-user.php" method="post">
+            <form class="" action="register.php" method="post">
                 <div class="form-group pt-3">
                   <label for="name">Your name</label>
                   <input type="text" name="name"  class="form-control">
