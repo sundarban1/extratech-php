@@ -1,5 +1,5 @@
 <?php
-
+include 'inc/db_config.php';
 include 'inc/header.php';
 
 ?>

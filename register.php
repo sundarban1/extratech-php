@@ -1,4 +1,7 @@
-<?php include 'inc/header.php' ?>
+<?php 
+include 'inc/db_config.php';
+include 'inc/header.php';
+?>
 
 <?php
 if (isset($_POST['register'])) {
@@ -23,7 +26,7 @@ if (isset($_POST['register'])) {
     $errorMsg = 'Your password is empty or less than six letters.';
   }else{
 
-    // insert data into databse;
+
 
   }
 }
