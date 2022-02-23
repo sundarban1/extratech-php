@@ -27,8 +27,19 @@ if (isset($_POST['register'])) {
     $errorMsg = 'Your password is empty or less than six letters.';
   }else{
 
-    $sql = "INSERT INTO `users` ('rabin', 'test123', 'helo@yaho.com', '1234567890', '123456')";
-            $conn->exec($sql);
+    $data = [
+      'name' => $name,
+      'username' => $username,
+      'email' => $email,
+      'mobile' => $mobile,
+      'password' => $password
+    ];
+    
+    $sql = "INSERT INTO users (`name`, `username`, `email`, `mobile`, `password`) 
+    VALUES (:name, :username, :email, :mobile, :password)";
+
+    $conn->prepare($sql)->execute();
+            
   }
 }
 ?>
