@@ -1,20 +1,25 @@
 <?php include 'inc/header.php' ?>
 
-
-
 <?php
+if (isset($_POST['register'])) {    
 
+  $errorMsg = '';
 
-if (isset($_POST['register'])) {
-       
-    var_dump($_POST);
-    exit;
+  $name = trim($_POST['name']);
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $mobile = $_POST['mobile'];
+  $password = $_POST['password'];
+
+  if (!preg_match("/^[a-zA-z]*$/", $name) ) {  
+    $errorMsg = "Your name is not valid.";  
+             echo $ErrMsg;  
+} 
   }
-
-
 ?>
 
 <div class="container">
+
 
       <nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
         <a class="navbar-brand" href="index.php"><i class="fas fa-home mr-2"></i>Dashboard</a>
@@ -43,6 +48,11 @@ if (isset($_POST['register'])) {
  <div class="card ">
    <div class="card-header">
           <h3 class='text-center'>User Registration</h3>
+          <?php if (!empty($errorMsg)){
+          ?>
+                <p class="text-center"><?php echo $errorMsg; ?></p>
+            <?php
+          }?>
         </div>
         <div class="cad-body">
             <div style="width:600px; margin:0px auto">
