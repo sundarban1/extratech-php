@@ -1,14 +1,22 @@
 <?php
-
 include 'inc/header.php';
+?>
+<?php
+if (isset($_POST['register'])) {
 
+  $errorMsg = '';
+
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  if (!empty($email, FILTER_VALIDATE_EMAIL)) {
+    $errorMsg = "Your email is emoty or invalid.";
+  }
+  elseif (empty($password) || strlen($password)<6){
+    $errorMsg="Your password is empty or less than 6 letters";
+  }
 ?>
 <div class="container">
-<?php
-
-include 'inc/navbar.php';
-
-?>
 <div class="card ">
 <div class="card-header">
     <h3 class='text-center'><i class="fas fa-sign-in-alt mr-2"></i>User login</h3>

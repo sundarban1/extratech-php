@@ -15,16 +15,15 @@ if (isset($_POST['register'])) {
     $errorMsg = "Your name is empty or invalid.";
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
-  } elseif(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
-    $errorMsg = "Your email is empty or invalid.";
-  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$phoneNumber)){
-    $errorMsg = 'Your mobile number is not valid.';
-  } elseif(empty($password) || strlen($password) < 6){
-    $errorMsg = 'Your password is empty or less than six letters.';
-  }else{
-
-    // insert data into databse;
-
+  }
+  elseif (!empty($email, FILTER_VALIDATE_EMAIL)) {
+    $errorMsg = "Your email is emoty or invalid.";
+  }
+  elseif (empty($mobile) || !!preg_match('/^\d{10}$/',$phoneNumber)){
+    $errorMsg="Your mobile number is empty or invalid";
+  }
+  elseif (empty($password) || strlen($password)<6){
+    $errorMsg="Your password is empty or less than 6 letters";
   }
 }
 ?>
