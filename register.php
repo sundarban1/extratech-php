@@ -1,7 +1,10 @@
 <?php 
 include 'inc/connection.php';
-include 'inc/header.php' 
-?>
+include 'inc/header.php'; ?>
+
+<div class="container">
+  <?php 
+  include 'inc/navbar.php'; ?>
 
 <?php
 if (isset($_POST['register'])) {
@@ -25,39 +28,24 @@ if (isset($_POST['register'])) {
   }elseif(empty($password) || strlen($password) < 6){
     $errorMsg = "Your password is empty or less than six characters.";
   }else{
-    //insert data into the database using SQL command
+    //check if the input email is already in the database or not
+    $sql1 = $conn->prepare("SELECT * FROM users where email='".$email."'");
+    $sql1->execute();
+    $numrows = $sql1->rowCount();
+    if($numrows >= 1){
+        echo "Email already exist";
+    }else{
+    //Now insert data into the database using SQL command
     $sql = "INSERT INTO users (name, username, email, mobile, password) 
             VALUES ('$name', '$username', '$email', '$mobile', '$password')";
     $conn->exec($sql);
+    }
 
   }
 }
+
 ?>
 
-<div class="container">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
-    <a class="navbar-brand" href="index.php"><i class="fas fa-home mr-2"></i>Dashboard</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav ml-auto">
-
-        <li class="nav-item
-
-               active ">
-          <a class="nav-link" href="register.php"><i class="fas fa-user-plus mr-2"></i>Register</a>
-        </li>
-        <li class="nav-item
-                ">
-          <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
-        </li>
-
-      </ul>
-
-    </div>
-  </nav>
 
   <div class="card ">
     <div class="card-header">

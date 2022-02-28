@@ -1,6 +1,9 @@
 <?php
 include 'inc/connection.php';
 include 'inc/header.php'; ?>
+<div class="container">
+  <?php 
+  include 'inc/navbar.php'; ?>
 
 <?php
 if (isset($_POST['login'])) {
@@ -16,51 +19,24 @@ if (isset($_POST['login'])) {
     $errorMsg = "Your password is empty.";
   }else{
     // check if the log in infos are in the database or not
-    $sql = $conn->prepare("SELECT * FROM users WHERE email = '".$email."' AND password = '".$password."'");
-    $sql->execute();
-    $numrows = $sql->rowCount();
-    if($numrows > 0){
-      echo "Logged in Successfully";
+    $loginSql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $sql = $conn->query($loginSql);
+    $user = $sql->fetch();
+    if(!empty($user)){
+      $_SESSION['logged'] = true;
+      $_SESSION['user_id'] = $user['id'];
+
+      header('Location: home.php');
+      //exit();
+
+      //echo "Logged in Successfully";
     }else{
-      echo "Your email or password is invalid";
+      $errorMsg = "Incorrect email or password";
     }
   }
 }
 
 ?>
-
-<div class="container">
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
-  <a class="navbar-brand" href="index.php"><i class="fas fa-home mr-2"></i>Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav ml-auto">
-
-
-
-    
-        <li class="nav-item
-
-        ">
-          <a class="nav-link" href="register.php"><i class="fas fa-user-plus mr-2"></i>Register</a>
-        </li>
-        <li class="nav-item
-           active ">
-          <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
-        </li>
-
-    
-
-    </ul>
-
-  </div>
-</nav>
-
-
 
 <div class="card ">
 <div class="card-header">
