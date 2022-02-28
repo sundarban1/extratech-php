@@ -1,78 +1,89 @@
-<?php include 'inc/header.php' ?>
-<?php  
- if (isset($_POST['register'])) {
+<?php 
+include 'config/db_config.php';
+include 'inc/header.php';
+?>
 
-  print_r($_POST);
-  exit;
+<?php
+if (isset($_POST['register'])) {
+
+  $errorMsg = '';
+
+  $name = trim($_POST['name']);
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+  $mobile = $_POST['mobile'];
+  $password = $_POST['password'];
+
+
+  if (empty($name) || !preg_match("/^[a-zA-z]*$/", $name)) {
+    $errorMsg = "Your name is empty or invalid.";
+  } elseif (empty($username) || !ctype_alnum($username)) {
+    $errorMsg = "Your username is empty or invalid.";
+  } elseif(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+    $errorMsg = "Your email is empty or invalid.";
+  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$mobile)){
+    $errorMsg = 'Your mobile number is not valid.';
+  } elseif(empty($password) || strlen($password) < 6){
+    $errorMsg = 'Your password is empty or less than six letters.';
+  }else{    
+    $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
+    VALUES ('$name', '$username', '$email', '$mobile', '$password')";
+
+    if($conn->prepare($sql)->execute()){
+      $errorMsg = 'You have successfully registered.';
+    }          
+  }
 }
-
-
-
-
 ?>
 
 <div class="container">
+<?php
 
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
-        <a class="navbar-brand" href="index.php"><i class="fas fa-home mr-2"></i>Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+include 'inc/navbar.php';
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav ml-auto">
-          
-              <li class="nav-item
+?>
 
-               active ">
-                <a class="nav-link" href="register.php"><i class="fas fa-user-plus mr-2"></i>Register</a>
-              </li>
-              <li class="nav-item
-                ">
-                <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
-              </li>
+  <div class="card ">
+    <div class="card-header">
+      <h3 class='text-center'>User Registration</h3>
+      <?php if (!empty($errorMsg)) {
+      ?>
+        <p class="text-center"><?php echo $errorMsg; ?></p>
+      <?php
+      } ?>
+    </div>
+    <div class="cad-body">
+      <div style="width:600px; margin:0px auto">
 
-          </ul>
-
-        </div>
-      </nav>
-
- <div class="card ">
-   <div class="card-header">
-          <h3 class='text-center'>User Registration</h3>
-        </div>
-        <div class="cad-body">
-            <div style="width:600px; margin:0px auto">
-
-            <form class="" action="" method="post">
-                <div class="form-group pt-3">
-                  <label for="name">Your name</label>
-                  <input type="text" name="name"  class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="username">Your username</label>
-                  <input type="text" name="username"  class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="email">Email address</label>
-                  <input type="email" name="email"  class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="mobile">Mobile Number</label>
-                  <input type="text" name="mobile"  class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" name="password" class="form-control">
-                  <input type="hidden" name="roleid" value="3" class="form-control">
-                </div>
-                <div class="form-group">
-                  <button type="submit" name="register" class="btn btn-success">Register</button>
-                </div>
-            </form>
+        <form class="" action="register.php" method="post">
+          <div class="form-group pt-3">
+            <label for="name">Your name</label>
+            <input type="text" name="name" class="form-control">
           </div>
-
-        </div>
+          <div class="form-group">
+            <label for="username">Your username</label>
+            <input type="text" name="username" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="text" name="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="text" name="mobile" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control">
+            <input type="hidden" name="roleid" value="3" class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="submit" name="register" class="btn btn-success">Register</button>
+          </div>
+        </form>
       </div>
 
-      <?php include 'inc/footer.php' ?>
+    </div>
+  </div>
+
+  <?php include 'inc/footer.php' ?>
