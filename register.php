@@ -19,7 +19,7 @@ if (isset($_POST['register'])) {
   elseif (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMsg = "Your email is emoty or invalid.";
   }
-  elseif (empty($mobile) || !!preg_match('/^\d{10}$/',$phoneNumber)){
+  elseif (empty($mobile) || !!preg_match('/^\d{10}$/',$mobile)){
     $errorMsg="Your mobile number is empty or invalid";
   }
   elseif (empty($password) || strlen($password)<6){

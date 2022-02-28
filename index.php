@@ -9,12 +9,13 @@ if (isset($_POST['index'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  if (!empty($email, FILTER_VALIDATE_EMAIL)) {
+  if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMsg = "Your email is emoty or invalid.";
   }
   elseif (empty($password) || strlen($password)<6){
     $errorMsg="Your password is empty or less than 6 letters";
   }
+}  
 ?>
 <div class="container">
 <div class="card ">
