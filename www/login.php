@@ -1,5 +1,10 @@
+<?php 
+session_start();
+?>
+
+
 <?php
-include 'config/db_config.php';
+include 'inc/db_config.php';
 include 'inc/header.php';
 ?>
 
@@ -18,19 +23,31 @@ if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
   } elseif(empty($password)){
     $errorMsg = 'Your password is empty';
 }
+$loginSql = "SELECT * FROM users WHERE email = '$email'";
 
-  $sql = "Select * from `users` where `email`='$email' and `password`='$password'";
- 
+      $sql = $conn->query($loginSql);
+      $user = $sql->fetch();
 
-  if($conn->prepare($sql)->execute()){
-    $errorMsg = 'You have successfully login.';
-  }  
-  else {
-    $errorMsg = 'please try again';
-  }        
+      if (!empty($user)) {
+
+        $verify = password_verify($password, $user['password']);
+      }
+        // Print the result depending if they match
+        if ($verify) {
+          $_SESSION['logged'] = true;
+          $_SESSION['user_id'] = $user['id'];
+    
+    header('Location: home.php',TRUE, 301);
+    
+    die();
+  } else {
+    $errorMsg = 'incorrect username and password.';
 }
+}
+      
+
 ?>
-<div class="container">
+
 <?php
 
 include 'inc/navbar.php';
@@ -43,7 +60,7 @@ include 'inc/navbar.php';
   </div>
   <div class="card-body">
       <div style="width:450px; margin:0px auto">
-      <form class="" action="login.php" method="post">
+      <form class="" action="user.php" method="post">
           <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" name="email"  class="form-control">
@@ -59,7 +76,8 @@ include 'inc/navbar.php';
     </div>
 </div>
 </div>
+
+
 <?php
 include 'inc/footer.php';
-
 ?>

@@ -1,5 +1,5 @@
 <?php 
-include 'config/db_config.php';
+include 'inc/db_config.php';
 include 'inc/header.php';
 ?>
 
@@ -12,8 +12,7 @@ if (isset($_POST['register'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $mobile = $_POST['mobile'];
-  $password = $_POST['password'];
-
+  $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
   if (empty($name) || !preg_match("/^[a-zA-z]*$/", $name)) {
     $errorMsg = "Your name is empty or invalid.";
@@ -28,10 +27,9 @@ if (isset($_POST['register'])) {
   }else{    
     $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
     VALUES ('$name', '$username', '$email', '$mobile', '$password')";
-
     if($conn->prepare($sql)->execute()){
       $errorMsg = 'You have successfully registered.';
-    }          
+    } 
   }
 }
 ?>
