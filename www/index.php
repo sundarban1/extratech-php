@@ -25,17 +25,25 @@ include 'inc/header.php';
       $errorMsg = 'Password cannot be empty.';
     } else {
 
-      $loginSql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+      $loginSql = "SELECT * FROM users WHERE email = '$email'";
 
       $sql = $conn->query($loginSql);
       $user = $sql->fetch();
 
       if (!empty($user)) {
 
-        $_SESSION['logged'] = true;
-        $_SESSION['user_id'] = $user['id'];
-        header('Location: http://localhost/user/www/home.php',TRUE, 301);
-        die();
+        $verify = password_verify($password, $user['password']);
+
+        // Print the result depending if they match
+        if ($verify) {
+          $_SESSION['logged'] = true;
+          $_SESSION['user_id'] = $user['id'];
+  
+          header('Location: home.php',TRUE, 301);
+          die();
+        } else {
+            echo 'Incorrect Password!';
+        }
       } else {
         $errorMsg = 'incorrect username and password.';
       }
