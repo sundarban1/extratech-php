@@ -2,7 +2,7 @@
 include 'inc/header.php';
 ?>
 <?php
-if (isset($_POST['register'])) {
+if (isset($_POST['index'])) {
 
   $errorMsg = '';
 
