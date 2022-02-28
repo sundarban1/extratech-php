@@ -31,11 +31,10 @@ include 'inc/header.php';
       $user = $sql->fetch();
 
       if (!empty($user)) {
+
         $_SESSION['logged'] = true;
         $_SESSION['user_id'] = $user['id'];
-        ob_start();
-        header('Location: http://localhost:8001/index.php',TRUE, 301);
-        ob_end_flush();
+        header('Location: http://localhost/user/www/home.php',TRUE, 301);
         die();
       } else {
         $errorMsg = 'incorrect username and password.';

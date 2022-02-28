@@ -12,6 +12,8 @@ include 'inc/header.php';
 
   <?php
   echo 'welcome to home page';
+
+  echo $_SESSION['user_id'];
   ?>
   <?php
   include 'inc/footer.php';
