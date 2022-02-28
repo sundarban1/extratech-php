@@ -2,8 +2,8 @@
    
 <?php
 $servername = "localhost:8889";
-$username = "user";
-$password = "ryuzaki08";
+$username = "mamp";
+$password = "hello123";
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=project_store", $username, $password);

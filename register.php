@@ -1,5 +1,5 @@
 <?php include 'inc/header.php' ?>
-
+<?php include 'inc/db_config.php' ?>
 <?php
 if (isset($_POST['register'])) {
 
@@ -26,6 +26,14 @@ if (isset($_POST['register'])) {
     $errorMsg="Your password is empty or less than 6 letters";
   }
 }
+$sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
+    VALUES ('$name', '$username', '$email', '$mobile', '$password')";
+
+    //echo $sql;
+
+    if($conn->prepare($sql)->execute()){
+      $errorMsg = 'You have successfully registered.';
+    }      
 ?>
 
 <div class="container">
