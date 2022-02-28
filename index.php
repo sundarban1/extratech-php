@@ -1,8 +1,34 @@
 <?php
+include 'inc/connection.php';
+include 'inc/header.php'; ?>
 
-include 'inc/header.php';
+<?php
+if (isset($_POST['login'])) {
+
+  $errorMsg = '';
+
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errorMsg = "Your email is empty or invalid.";
+  }elseif(empty($password)){
+    $errorMsg = "Your password is empty.";
+  }else{
+    // check if the log in infos are in the database or not
+    $sql = $conn->prepare("SELECT * FROM users WHERE email = '".$email."' AND password = '".$password."'");
+    $sql->execute();
+    $numrows = $sql->rowCount();
+    if($numrows > 0){
+      echo "Logged in Successfully";
+    }else{
+      echo "Your email or password is invalid";
+    }
+  }
+}
 
 ?>
+
 <div class="container">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark card-header">
@@ -39,13 +65,18 @@ include 'inc/header.php';
 <div class="card ">
 <div class="card-header">
     <h3 class='text-center'><i class="fas fa-sign-in-alt mr-2"></i>User login</h3>
+    <?php if (!empty($errorMsg)) {
+      ?>
+        <p class="text-center"><?php echo $errorMsg; ?></p>
+      <?php
+      } ?>
   </div>
   <div class="card-body">
 
 
       <div style="width:450px; margin:0px auto">
 
-      <form class="" action="" method="post">
+      <form class="" action="index.php" method="post">
           <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" name="email"  class="form-control">
@@ -66,9 +97,5 @@ include 'inc/header.php';
   </div>
 </div>
 
-<?php
 
-
-include 'inc/footer.php';
-
-?>
+<?php include 'inc/footer.php'; ?>
