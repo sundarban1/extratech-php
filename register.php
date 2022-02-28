@@ -16,7 +16,7 @@ if (isset($_POST['register'])) {
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
   }
-  elseif (!empty($email, FILTER_VALIDATE_EMAIL)) {
+  elseif (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMsg = "Your email is emoty or invalid.";
   }
   elseif (empty($mobile) || !!preg_match('/^\d{10}$/',$phoneNumber)){
