@@ -28,10 +28,9 @@ if (isset($_POST['register'])) {
   }else{    
     $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
     VALUES ('$name', '$username', '$email', '$mobile', '$password')";
-
     if($conn->prepare($sql)->execute()){
       $errorMsg = 'You have successfully registered.';
-    }          
+    } 
   }
 }
 ?>
