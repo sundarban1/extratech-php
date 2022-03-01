@@ -27,7 +27,7 @@ if (isset($_POST['register'])) {
   }
 }
 $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
-    VALUES ('$name', '$username', '$email', '$mobile', '$password')";
+    VALUES ('name', 'username', 'email', 'mobile', 'password')";
 
     //echo $sql;
 
