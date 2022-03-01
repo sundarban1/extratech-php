@@ -15,7 +15,7 @@ if (isset($_POST['register'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $mobile = $_POST['mobile'];
-  $password = $_POST['password'];
+  $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
   if (empty($name) || !preg_match("/^[a-zA-Z-' ]*$/", $name)) {
     $errorMsg = "Your name is empty or invalid.";
@@ -38,7 +38,10 @@ if (isset($_POST['register'])) {
     //Now insert data into the database using SQL command
     $sql = "INSERT INTO users (name, username, email, mobile, password) 
             VALUES ('$name', '$username', '$email', '$mobile', '$password')";
-    $conn->exec($sql);
+    //$conn->exec($sql);
+    if($conn->prepare($sql)->execute()){
+      $errorMsg = 'You have successfully registered.';
+    } 
     }
 
   }

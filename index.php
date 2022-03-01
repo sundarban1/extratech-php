@@ -19,19 +19,25 @@ if (isset($_POST['login'])) {
     $errorMsg = "Your password is empty.";
   }else{
     // check if the log in infos are in the database or not
-    $loginSql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $loginSql = "SELECT * FROM users WHERE email = '$email'";
     $sql = $conn->query($loginSql);
     $user = $sql->fetch();
     if(!empty($user)){
-      $_SESSION['logged'] = true;
-      $_SESSION['user_id'] = $user['id'];
+      $verify = password_verify($password, $user['password']);
 
-      header('Location: home.php');
-      //exit();
+      // Print the result depending if they match
+      if ($verify) {
 
-      //echo "Logged in Successfully";
-    }else{
-      $errorMsg = "Incorrect email or password";
+        $_SESSION['logged'] = true;
+        $_SESSION['user_id'] = $user['id'];
+
+        header('Location: home.php');
+        //exit();
+
+        //echo "Logged in Successfully";
+      }else{
+        $errorMsg = "Incorrect email or password";
+      }
     }
   }
 }
