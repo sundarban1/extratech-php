@@ -3,7 +3,7 @@ include 'inc/db_config.php';
 include 'inc/header.php';
 
 
-$sql = $conn->query("SELECT * FROM users WHERE status = 'active'");
+$sql = $conn->query("SELECT * FROM users");
 
 $users = $sql->fetchAll();
 
@@ -83,11 +83,14 @@ $users = $sql->fetchAll();
                 <?php
 
                 foreach ($users as $user) {
+                  $id = $user['id'];
                 ?>
+
+
 
                   <tr class="text-center odd" role="row">
 
-                    <td class="sorting_1"><?php echo $user['id']; ?></td>
+                    <td class="sorting_1"><?php echo $id; ?></td>
                     <td><?php echo $user['name']; ?></td>
                     <td><?php echo $user['username']; ?> <br>
                       <span class="badge badge-lg badge-info text-white">Admin</span>
@@ -104,11 +107,11 @@ $users = $sql->fetchAll();
                     <td>
                       <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
                       <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
-                      <a onclick="return confirm('Are you sure To Delete ?')" class="btn btn-danger
-                               btn-sm " href="?remove=21">Remove</a>
+                      <a onclick="return confirm('Are you sure want to delete this user ?')" class="btn btn-danger
+                               btn-sm " href="delete.php?id=<?php echo $id; ?>">Remove</a>
 
                       <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
-                                     btn-sm " href="?active=21">Active</a>
+                                     btn-sm " href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive':'Active'; ?></a>
                     </td>
                   </tr>
 
