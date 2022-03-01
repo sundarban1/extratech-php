@@ -10,7 +10,47 @@ include 'inc/header.php';
 
   ?>
 
-  
+  <?php
+
+  $errorMsg = '';
+
+  if (isset($_POST['login'])) {
+
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $errorMsg = "Email cannot be empty or invalid.";
+    } elseif (empty($password)) {
+      $errorMsg = 'Password cannot be empty.';
+    } else {
+
+      $loginSql = "SELECT * FROM users WHERE email = '$email'";
+
+      $sql = $conn->query($loginSql);
+      $user = $sql->fetch();
+
+      if (!empty($user)) {
+
+        $verify = password_verify($password, $user['password']);
+
+        // Print the result depending if they match
+        if ($verify) {
+          $_SESSION['logged'] = true;
+          $_SESSION['user_id'] = $user['id'];
+            
+          header('Location: home.php',TRUE, 301);
+          die();
+        } else {
+            echo 'Incorrect Password!';
+        }
+      } else {
+        $errorMsg = 'incorrect username and password.';
+      }
+    }
+  }
+
+  ?>
 
   <div class="card ">
     <div class="card-header">
