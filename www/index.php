@@ -38,7 +38,7 @@ include 'inc/header.php';
         if ($verify) {
           $_SESSION['logged'] = true;
           $_SESSION['user_id'] = $user['id'];
-  
+            
           header('Location: home.php',TRUE, 301);
           die();
         } else {

@@ -43,7 +43,15 @@ $users = $sql->fetchAll();
     <div class="card-header">
       <h3><i class="fas fa-users mr-2"></i>User list <span class="float-right">Welcome! <strong>
             <span class="badge badge-lg badge-secondary text-white">
-              Sundar</span>
+
+              <?php
+              $loggedInUserId = $_SESSION['user_id'];
+              $sql = $conn->query("SELECT * FROM users where id = '$loggedInUserId'");
+
+              $user = $sql->fetch();
+              
+               echo $user['name'];
+                ?></span>
 
           </strong></span></h3>
     </div>
@@ -85,9 +93,6 @@ $users = $sql->fetchAll();
                 foreach ($users as $user) {
                   $id = $user['id'];
                 ?>
-
-
-
                   <tr class="text-center odd" role="row">
 
                     <td class="sorting_1"><?php echo $id; ?></td>
@@ -95,7 +100,7 @@ $users = $sql->fetchAll();
                     <td><?php echo $user['username']; ?> <br>
                       <span class="badge badge-lg badge-info text-white">Admin</span>
                     </td>
-                    <td><?php echo $user['email'];?></td>
+                    <td><?php echo $user['email']; ?></td>
 
                     <td><span class="badge badge-lg badge-secondary text-white"><?php echo $user['mobile']; ?></span></td>
                     <td>
@@ -111,7 +116,7 @@ $users = $sql->fetchAll();
                                btn-sm " href="delete.php?id=<?php echo $id; ?>">Remove</a>
 
                       <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
-                                     btn-sm " href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive':'Active'; ?></a>
+                                     btn-sm " href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive' : 'Active'; ?></a>
                     </td>
                   </tr>
 
