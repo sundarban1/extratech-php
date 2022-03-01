@@ -16,7 +16,6 @@ if (isset($_POST['login'])) {
   $email = trim($_POST['email']);
   $password = trim($_POST['password']);
 
-
 if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
     $errorMsg = "Your email is empty or invalid.";
   
@@ -27,6 +26,7 @@ $loginSql = "SELECT * FROM users WHERE email = '$email'";
 
       $sql = $conn->query($loginSql);
       $user = $sql->fetch();
+      echo $_SESSION['user_id'];
 
       if (!empty($user)) {
 
@@ -36,13 +36,13 @@ $loginSql = "SELECT * FROM users WHERE email = '$email'";
         if ($verify) {
           $_SESSION['logged'] = true;
           $_SESSION['user_id'] = $user['id'];
-    
-    header('Location: home.php',TRUE, 301);
-    
-    die();
-  } else {
+          header('Location:user.php');
+         die();
+  } else
+   {
     $errorMsg = 'incorrect username and password.';
 }
+
 }
       
 
@@ -60,7 +60,7 @@ include 'inc/navbar.php';
   </div>
   <div class="card-body">
       <div style="width:450px; margin:0px auto">
-      <form class="" action="user.php" method="post">
+      <form class="" action="" method="post">
           <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" name="email"  class="form-control">
