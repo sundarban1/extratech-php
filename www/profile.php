@@ -4,20 +4,13 @@ include 'inc/db_config.php';
 include 'inc/auth.php';
 
 $userId = $_GET['id'] ?? 0;
-
 $sql = $conn->query("SELECT * FROM users where id = '$userId'");
-
 $user = $sql->fetch();
-
 ?>
-
 
 <?php 
 
 if(isset($_POST['update'])){
-
-  
-
  $userId = $_POST['id'];
  $name = trim($_POST['name']);
  $username = trim($_POST['username']);
