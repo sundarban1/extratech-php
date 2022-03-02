@@ -18,6 +18,7 @@ include 'inc/header.php';
 
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
+    
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $errorMsg = "Email cannot be empty or invalid.";
@@ -38,6 +39,8 @@ include 'inc/header.php';
         if ($verify) {
           $_SESSION['logged'] = true;
           $_SESSION['user_id'] = $user['id'];
+
+          
             
           header('Location: home.php',TRUE, 301);
           die();
