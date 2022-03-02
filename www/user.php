@@ -1,24 +1,21 @@
-
-
-
 <?php
 include 'inc/db_config.php';
 include 'inc/header.php';
 
 ?>
 <div class="container">
-  <?php
+    <?php
 
   include 'inc/navbar.php';
 
   ?>
 
-  <?php
+    <?php
   echo 'welcome to home page';
 
   echo $_SESSION['user_id'];
   ?>
-  <?php
+    <?php
   include 'inc/footer.php';
 
   ?>
