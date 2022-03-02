@@ -140,8 +140,12 @@ $users = $sql->fetchAll();
                                     <td>
                                         <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
                                         <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
-                                        <?php if ($id == $_SESSION['id']){?> <a class="btn btn-danger disabled btn-sm "
-                                            <?php } else { ?> class=" btn btn-danger btn-sm"
+
+                                        <?php 
+                                        //TODO: not delete login user
+                                        if ($id == $_SESSION['id']){?>
+                                        <a class="btn btn-danger disabled btn-sm " <?php } else { ?>
+                                            class=" btn btn-danger btn-sm"
                                             onclick="return confirm('Are you sure want to delete this user ?')"
                                             href="delete.php?id=<?php echo $id; ?>">Remove</>
 
