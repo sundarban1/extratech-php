@@ -110,7 +110,7 @@ $users = $sql->fetchAll();
                     <td><span class="badge badge-lg badge-secondary text-white"><?php echo $user['created_at']; ?></span></td>
 
                     <td>
-                      <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
+                      <a class="btn btn-success btn-sm" href="profile.php?id=<?php echo $user['id']; ?>">View</a>
                       <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
                       <a onclick="return confirm('Are you sure want to delete this user ?')" class="btn btn-danger
                                btn-sm " href="delete.php?id=<?php echo $id; ?>">Remove</a>
