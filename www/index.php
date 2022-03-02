@@ -1,4 +1,7 @@
 <?php
+session_start();
+?>
+<?php
 include 'inc/db_config.php';
 include 'inc/header.php';
 
@@ -31,18 +34,16 @@ include 'inc/header.php';
       $sql = $conn->query($loginSql);
       $user = $sql->fetch();
 
-      if (!empty($user)) {
-
+      if ($user){
+        
+        
         $verify = password_verify($password, $user['password']);
-
+      
         // Print the result depending if they match
         if ($verify) {
           $_SESSION['logged'] = true;
           $_SESSION['user_id'] = $user['id'];
-
-
-
-          header('Location: home.php', TRUE, 301);
+          header('Location: http://localhost:8080/Extratech-php/www/home.php',TRUE, 301);
           die();
         } else {
           echo 'Incorrect Password!';
@@ -66,7 +67,7 @@ include 'inc/header.php';
         </div>
         <div class="card-body">
             <div style="width:450px; margin:0px auto">
-                <form class="" action="" method="post">
+                <form class="" action="" method="POST">
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <input type="email" name="email" class="form-control">
@@ -76,7 +77,8 @@ include 'inc/header.php';
                         <input type="password" name="password" class="form-control">
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="login" class="btn btn-success">Login</button>
+                        <button type="submit" name="login" class="btn btn-success"> Login
+                        </button>
                     </div>
                 </form>
             </div>

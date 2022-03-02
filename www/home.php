@@ -1,9 +1,24 @@
 <?php
+session_start()
+?>
+<?php
 include 'inc/db_config.php';
 include 'inc/header.php';
+include 'inc/auth.php';
+?>
+<?php
+$query = "SELECT * FROM users";
 
+if (isset($_POST['search'])) {
 
-$sql = $conn->query("SELECT * FROM users");
+    $keyword = trim($_POST['keyword']);
+
+    $where = " WHERE username LIKE '%$keyword%'";
+
+    $query = $query . $where;
+}
+
+$sql = $conn->query($query);
 
 $users = $sql->fetchAll();
 
@@ -32,7 +47,7 @@ $users = $sql->fetchAll();
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="logout1.php"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+                    <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
                 </li>
             </ul>
         </div>
@@ -72,120 +87,129 @@ $users = $sql->fetchAll();
                                 </select> entries</label></div>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                    class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+                        <div id="example_filter" class="dataTables_filter">
+
+                            <form method="POST" name="search-form" action="">
+                                <label>Search:<input type="search" class="form-control form-control-sm" name="keyword"
+                                        placeholder="" aria-controls="example"></label>
+                                <button type="submit" name="search" class="btn btn-success">Search</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table id="example" class="table table-striped table-bordered dataTable no-footer"
-                            style="width: 100%;" role="grid" aria-describedby="example_info">
-                            <thead>
-                                <tr role="row">
-                                    <th class="text-center sorting_asc" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="SL: activate to sort column descending" style="width: 17px;">SL</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Name: activate to sort column ascending"
-                                        style="width: 38px;">Name</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Username: activate to sort column ascending"
-                                        style="width: 66px;">Username</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Email address: activate to sort column ascending"
-                                        style="width: 133px;">Email address</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Mobile: activate to sort column ascending"
-                                        style="width: 60px;">Mobile</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Status: activate to sort column ascending"
-                                        style="width: 43px;">Status</th>
-                                    <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
-                                        colspan="1" aria-label="Created: activate to sort column ascending"
-                                        style="width: 96px;">Created</th>
-                                    <th width="25%" class="text-center sorting" tabindex="0" aria-controls="example"
-                                        rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending"
-                                        style="width: 118px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example" class="table table-striped table-bordered dataTable no-footer"
+                        style="width: 100%;" role="grid" aria-describedby="example_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="text-center sorting_asc" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-sort="ascending"
+                                    aria-label="SL: activate to sort column descending" style="width: 17px;">SL</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Name: activate to sort column ascending"
+                                    style="width: 38px;">Name</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Username: activate to sort column ascending"
+                                    style="width: 66px;">Username</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Email address: activate to sort column ascending"
+                                    style="width: 133px;">Email address</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Mobile: activate to sort column ascending"
+                                    style="width: 60px;">Mobile</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Status: activate to sort column ascending"
+                                    style="width: 43px;">Status</th>
+                                <th class="text-center sorting" tabindex="0" aria-controls="example" rowspan="1"
+                                    colspan="1" aria-label="Created: activate to sort column ascending"
+                                    style="width: 96px;">Created</th>
+                                <th width="25%" class="text-center sorting" tabindex="0" aria-controls="example"
+                                    rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending"
+                                    style="width: 118px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                <?php
+                            <?php
 
-                                foreach ($users as $user) {
-                                    $id = $user['id'];
-                                ?>
-                                <tr class="text-center odd" role="row">
+                            foreach ($users as $user) {
+                                $id = $user['id'];
+                            ?>
+                            <tr class="text-center odd" role="row">
 
-                                    <td class="sorting_1"><?php echo $id; ?></td>
-                                    <td><?php echo $user['name']; ?></td>
-                                    <td><?php echo $user['username']; ?> <br>
-                                        <span class="badge badge-lg badge-info text-white">Admin</span>
-                                    </td>
-                                    <td><?php echo $user['email']; ?></td>
+                                <td class="sorting_1"><?php echo $id; ?></td>
+                                <td><?php echo $user['name']; ?></td>
+                                <td><?php echo $user['username']; ?> <br>
+                                    <span class="badge badge-lg badge-info text-white">Admin</span>
+                                </td>
+                                <td><?php echo $user['email']; ?></td>
 
-                                    <td><span
-                                            class="badge badge-lg badge-secondary text-white"><?php echo $user['mobile']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge badge-lg badge-danger text-white"><?php echo $user['status']; ?></span>
+                                <td><span
+                                        class="badge badge-lg badge-secondary text-white"><?php echo $user['mobile']; ?></span>
+                                </td>
+                                <td>
+                                    <span
+                                        class="badge badge-lg badge-danger text-white"><?php echo $user['status']; ?></span>
 
-                                    </td>
-                                    <td><span
-                                            class="badge badge-lg badge-secondary text-white"><?php echo $user['created_at']; ?></span>
-                                    </td>
+                                </td>
+                                <td><span
+                                        class="badge badge-lg badge-secondary text-white"><?php echo $user['created at']; ?></span>
+                                </td>
 
-                                    <td>
-                                        <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
-                                        <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
+                                    <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
 
-                                        <?php 
+                                    <?php
                                         //TODO: not delete login user
-                                        if ($id == $_SESSION['id']){?>
-                                        <a class="btn btn-danger disabled btn-sm " <?php } else { ?>
-                                            class=" btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure want to delete this user ?')"
-                                            href="delete.php?id=<?php echo $id; ?>">Remove</>
+                                        if ($id == $_SESSION['user_id']) { ?>
+                                    <a class="btn btn-danger btn-sm disabled">Remove</a> <?php } else { ?><a
+                                        class=" btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure want to delete this user ?')"
+                                        href="delete.php?id=<?php echo $id; ?>">Remove</a><?php }
+                                                                                                                                                                                                                                                                            ?>
 
-                                            <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
+                                    <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
                                      btn-sm "
-                                                href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive' : 'Active'; ?></a>
-                                    </td>
-                                </tr>
+                                        href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive' : 'Active'; ?></a>
+                                </td>
+                            </tr>
 
-                                <?php }
-                                ?>
-                            </tbody>
 
-                        </table>
-                    </div>
+                            <?php }
+                            ?>
+                        </tbody>
+
+                    </table>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 9
-                            of 9 entries</div>
-                    </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                            <ul class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="example_previous"><a
-                                        href="#" aria-controls="example" data-dt-idx="0" tabindex="0"
-                                        class="page-link">Previous</a></li>
-                                <li class="paginate_button page-item active"><a href="#" aria-controls="example"
-                                        data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                <li class="paginate_button page-item next disabled" id="example_next"><a href="#"
-                                        aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">Next</a>
-                                </li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 9
+                        of 9 entries</div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous disabled" id="example_previous"><a href="#"
+                                    aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                            </li>
+                            <li class="paginate_button page-item active"><a href="#" aria-controls="example"
+                                    data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                            <li class="paginate_button page-item next disabled" id="example_next"><a href="#"
+                                    aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">Next</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php
-    include 'inc/footer.php';
+</div>
 
-    ?>
+<?php
+include 'inc/footer.php';
+
+?>

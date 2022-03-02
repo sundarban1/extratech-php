@@ -14,4 +14,7 @@ if ($user) {
   if ($sql->execute()) {
     header('Location: home.php', TRUE, 301);
   }
+  else{
+    echo 'user does not exist';
+  }
 }

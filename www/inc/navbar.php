@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item
            active ">
-                <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+                <a class="nav-link" href="index.php"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
             </li>
         </ul>
     </div>
