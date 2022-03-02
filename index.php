@@ -1,14 +1,14 @@
 <?php
-include 'inc/connection.php';
-include 'inc/header.php'; ?>
+  include 'inc/connection.php';
+  include 'inc/header.php'; ?>
 <div class="container">
   <?php 
   include 'inc/navbar.php'; ?>
 
 <?php
-if (isset($_POST['login'])) {
 
   $errorMsg = '';
+if (isset($_POST['login'])) {
 
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -35,7 +35,11 @@ if (isset($_POST['login'])) {
         //exit();
 
         //echo "Logged in Successfully";
-      }else{
+      }else {
+        echo 'Incorrect Password!';
+      }
+    }
+      else{
         $errorMsg = "Incorrect email or password";
       }
     }
