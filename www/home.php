@@ -140,14 +140,14 @@ $users = $sql->fetchAll();
                                     <td>
                                         <a class="btn btn-success btn-sm" href="profile.php?id=21">View</a>
                                         <a class="btn btn-info btn-sm " href="profile.php?id=21">Edit</a>
-                                        <a onclick="return confirm('Are you sure want to delete this user ?')"
-                                            <?php if ($id == $_SESSION['id']){?> class="btn btn-danger disabled
-                               btn-sm " <?php } else { ?> class="btn btn-danger 
-                               btn-sm " href=" delete.php?id=<?php echo $id; ?>">Remove</a>
+                                        <?php if ($id == $_SESSION['id']){?> <a class="btn btn-danger disabled btn-sm "
+                                            <?php } else { ?> class=" btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure want to delete this user ?')"
+                                            href="delete.php?id=<?php echo $id; ?>">Remove</>
 
-                                        <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
+                                            <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
                                      btn-sm "
-                                            href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive' : 'Active'; ?></a>
+                                                href="status.php?id=<?php echo $id; ?>&status=<?php echo $user['status']; ?>"><?php echo $user['status'] === 'active' ? 'Inactive' : 'Active'; ?></a>
                                     </td>
                                 </tr>
 
