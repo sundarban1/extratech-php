@@ -1,9 +1,24 @@
 <?php
+
 include 'inc/db_config.php';
 include 'inc/header.php';
+include 'inc/auth.php';
 
 
-$sql = $conn->query("SELECT * FROM users");
+$query = "SELECT * FROM users";
+
+if(isset($_POST['search'])){
+
+  $keyword = trim($_POST['keyword']);
+ 
+  $where = " WHERE username LIKE '%$keyword%'";
+
+  $query = $query.$where;
+}
+
+
+
+$sql = $conn->query($query);
 
 $users = $sql->fetchAll();
 
@@ -68,7 +83,13 @@ $users = $sql->fetchAll();
                 </select> entries</label></div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label></div>
+            <div id="example_filter" class="dataTables_filter">
+
+            <form method="post" name="search-form" action = "">
+            <label>Search:<input type="search" class="form-control form-control-sm" name="keyword" placeholder="" aria-controls="example"></label>
+             <button type="submit" name="search" class="btn btn-success">Search</button>
+            </form>
+            </div>
           </div>
         </div>
         <div class="row">

@@ -1,6 +1,7 @@
 <?php
 include 'inc/header.php';
 include 'inc/db_config.php';
+include 'inc/auth.php';
 
 $userId = $_GET['id'] ?? 0;
 
@@ -23,7 +24,9 @@ if(isset($_POST['update'])){
  $email = trim($_POST['email']);
  $mobile = trim($_POST['mobile']);
 
- //before updating form validation is"UPDATE users SET name= '$name', username= '$username', $email = '$email', mobile = '$mobile' WHERE id = '$userId'" required - H/W
+ //before updating form validation H/W
+ // give profile link to the login user
+ // block all pages if user is not loggeed in - auth
 
  $query = "UPDATE users SET name= '$name', username= '$username', email = '$email', mobile = '$mobile' WHERE id = '$userId'";
 
@@ -89,7 +92,7 @@ if(isset($_POST['update'])){
           <input type="text" id="mobile" name="mobile" value="<?php echo $user['mobile']; ?>" class="form-control">
         </div>
         <div class="form-group">
-          <button type="submit" name="update" class="btn btn-success">Update</button>
+        <button type="submit" name="update" class="btn btn-success">Update</button>
         </div>
     </form>
   </div>
