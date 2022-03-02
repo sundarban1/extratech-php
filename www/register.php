@@ -14,7 +14,7 @@ if (isset($_POST['register'])) {
   $mobile = $_POST['mobile'];
   $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
-  if (empty($name) || !preg_match("/^[a-zA-z]*$/", $name)) {
+  if (empty($name) || !preg_match("/^[a-z A-z]*$/", $name)) {
     $errorMsg = "Your name is empty or invalid.";
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
