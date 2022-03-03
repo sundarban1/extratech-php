@@ -27,12 +27,9 @@ if (isset($_POST['register'])) {
   }else{    
     $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
     VALUES ('$name', '$username', '$email', '$mobile', '$password')";
-<<<<<<< HEAD:register.php
 
     //echo $sql;
 
-=======
->>>>>>> master:www/register.php
     if($conn->prepare($sql)->execute()){
       $errorMsg = 'You have successfully registered.';
     } 
