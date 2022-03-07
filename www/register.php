@@ -1,6 +1,7 @@
-<?php 
+<?php
 include 'inc/db_config.php';
 include 'inc/header.php';
+
 ?>
 
 <?php
@@ -18,28 +19,28 @@ if (isset($_POST['register'])) {
     $errorMsg = "Your name is empty or invalid.";
   } elseif (empty($username) || !ctype_alnum($username)) {
     $errorMsg = "Your username is empty or invalid.";
-  } elseif(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+  } elseif (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errorMsg = "Your email is empty or invalid.";
-  } elseif(empty($mobile) || !preg_match('/^\d{10}$/',$mobile)){
+  } elseif (empty($mobile) || !preg_match('/^\d{10}$/', $mobile)) {
     $errorMsg = 'Your mobile number is not valid.';
-  } elseif(empty($password) || strlen($password) < 6){
+  } elseif (empty($password) || strlen($password) < 6) {
     $errorMsg = 'Your password is empty or less than six letters.';
-  }else{    
+  } else {
     $sql = "INSERT INTO `users` (`name`, `username`, `email`, `mobile`, `password`) 
     VALUES ('$name', '$username', '$email', '$mobile', '$password')";
-    if($conn->prepare($sql)->execute()){
+    if ($conn->prepare($sql)->execute()) {
       $errorMsg = 'You have successfully registered.';
-    } 
+    }
   }
 }
 ?>
 
 <div class="container">
-<?php
+  <?php
 
-include 'inc/navbar.php';
+  include 'inc/navbar.php';
 
-?>
+  ?>
 
   <div class="card ">
     <div class="card-header">
@@ -53,26 +54,26 @@ include 'inc/navbar.php';
     <div class="cad-body">
       <div style="width:600px; margin:0px auto">
 
-        <form class="" action="register.php" method="post">
+        <form name="register-form" class="" action="register.php" method="post">
           <div class="form-group pt-3">
             <label for="name">Your name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" id="name" class="form-control">
           </div>
           <div class="form-group">
             <label for="username">Your username</label>
-            <input type="text" name="username" class="form-control">
+            <input type="text" name="username" id="username" class="form-control">
           </div>
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="text" name="email" class="form-control">
+            <input type="text" name="email" id="email" class="form-control">
           </div>
           <div class="form-group">
             <label for="mobile">Mobile Number</label>
-            <input type="text" name="mobile" class="form-control">
+            <input type="text" name="mobile" id="mobile" class="form-control">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" name="password" id="password" class="form-control">
             <input type="hidden" name="roleid" value="3" class="form-control">
           </div>
           <div class="form-group">
@@ -85,3 +86,4 @@ include 'inc/navbar.php';
   </div>
 
   <?php include 'inc/footer.php' ?>
+ 
