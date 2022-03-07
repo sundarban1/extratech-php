@@ -1,5 +1,5 @@
 <div class="well card-footer">
-<p> Footer</p>
+<p> This section is Footer<p>
 </div>
   </body>
   <!-- Jquery script -->
