@@ -7,15 +7,9 @@ include 'inc/header.php';
   <?php
 
   include 'inc/navbar.php';
+  $errorMsg="";
 
-  ?>
-
-  <?php
-
-  $errorMsg = '';
-
-  if (isset($_POST['login'])) {
-
+  if (isset($_POST['loginForm'])) {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
@@ -73,7 +67,7 @@ include 'inc/header.php';
             <input type="password" name="password" id="password" class="form-control">
           </div>
           <div class="form-group">
-            <button type="submit" name="login" id="login" class="btn btn-success">Login</button>
+            <button type="submit" name="loginForm" id="loginForm" class="btn btn-success">Login</button>
           </div>
         </form>
       </div>
