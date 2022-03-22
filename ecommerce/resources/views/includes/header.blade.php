@@ -1,9 +1,6 @@
-<div class="navbar">
-   <div class="navbar-inner">
-       <a id="logo" href="/">Single Malt</a>
-       <ul class="nav">
-           <li><a href="/">Home</a></li>
-           <li><a href="/contact">Contact</a></li>
-       </ul>
-   </div>
-</div>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#">Home</a></li> | 
+  <li role="presentation"><a href="#">Profile</a></li> |
+  <li role="presentation"><a href="#">Messages</a></li> |
+  <li role="presentation"><a href="#">Logout</a></li> |
+</ul>

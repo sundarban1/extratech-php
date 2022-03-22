@@ -15,12 +15,13 @@
         <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('autherror') }}</p>
         @endif
         @csrf
+        <div class="error-msg center error-text"></div>
         <h2 class="text-center">Login</h2>
         <div class="form-group">
-            <input name="email" type="text" class="form-control" placeholder="Email">
+            <input name="email" id="email" type="text" class="form-control" placeholder="Email">
         </div>
         <div class="form-group">
-            <input name="password" type="password" class="form-control" placeholder="Password">
+            <input name="password" id="password" type="password" class="form-control" placeholder="Password">
         </div>
   
            <div class="clearfix">
@@ -28,7 +29,7 @@
             <a href="{{route('user.forgotpassword')}}" class="float-right">Forgot Password?</a>
         </div>  
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" id="login-btn" class="btn btn-primary btn-block">Login</button>
         </div>
 
     </form>

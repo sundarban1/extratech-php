@@ -39,8 +39,6 @@ class UserController extends Controller
 
         //store data to the databse
 
-
-
         $user = new Users();
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
@@ -54,7 +52,6 @@ class UserController extends Controller
         }
     }
 
-
     public function login()
     {
         return view('users.login');
@@ -62,7 +59,6 @@ class UserController extends Controller
 
     public function auth(Request $request)
     {
-
         $validation = $request->validate(
             [
                 'email' => 'email',
@@ -82,7 +78,10 @@ class UserController extends Controller
             $dbPassword = $authUser->password;
 
             if (Hash::check($password, $dbPassword)) {
-                //dispaly home page of user
+
+                $users = Users::all();  // select * from users;
+                return view('users.home', ['users' => $users]);
+                
             } else {
                 Session::flash('autherror', 'Invalid username and password.');
                 return redirect()->route('user.login');
