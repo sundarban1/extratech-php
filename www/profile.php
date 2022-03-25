@@ -10,6 +10,10 @@ $user = $sql->fetch();
 
 <?php 
 
+if($_SESSION['logged'] === false){
+  header('Location: ./logout.php');
+}
+
 if(isset($_POST['update'])){
  $userId = $_POST['id'];
  $name = trim($_POST['name']);

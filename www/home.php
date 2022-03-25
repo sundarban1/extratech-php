@@ -4,6 +4,9 @@ include 'inc/db_config.php';
 include 'inc/header.php';
 include 'inc/auth.php';
 
+if($_SESSION['logged'] === false){
+  header('Location: ./logout.php');
+}
 
 $query = "SELECT * FROM users";
 
@@ -41,7 +44,7 @@ $users = $sql->fetchAll();
           <a class="nav-link" href="addUser.php"><i class="fas fa-user-plus mr-2"></i>Add user </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="profile.php?id=7"><i class="fab fa-500px mr-2"></i>Profile <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="profile.php?id=<?php echo $_SESSION['user_id'];?>"><i class="fab fa-500px mr-2"></i>Profile <span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item">
