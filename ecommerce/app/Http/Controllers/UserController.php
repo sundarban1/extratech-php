@@ -143,4 +143,50 @@ class UserController extends Controller
 
         return view('users.view')->with($data);
     }
+
+    public function edit($id){
+
+    $user = Users::find($id); // select * from users where id = $id;
+
+    return view('users.edit',['user'=>$user]);
+
+    }
+
+    public function update(Request $request){
+
+        $id = $request->input('user_id');
+
+        $validation = $request->validate(
+            [
+                'first_name' => 'required|max:10',
+                'last_name' => 'required|max:10',
+                'email' => 'unique:users,email,'. $id,
+                'gender' => 'required|in:Male,Female,Other',
+                'mobile' => 'required|digits_between:10,10|unique:users,mobile,'.$id,
+            ]
+        );
+
+        //update the user data
+
+        $data =[
+            'first_name' => $request->input('first_name'),
+            'last_name'=> $request->input('last_name'),
+            'email'=>$request->input('email'),
+            'gender'=>$request->input('gender'),
+            'mobile'=>$request->input('mobile'),
+        ];
+
+        $user = Users::find($id);
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->gender = $request->input('gender');
+        $user->mobile = $request->input('mobile');
+        $user->save();
+        
+       Session::flash('message', 'You have registered Successfully.');
+       return view('users.edit',['user'=>$user]);
+ 
+    }
+
 }
