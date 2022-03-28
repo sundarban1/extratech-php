@@ -28,3 +28,10 @@ Route::post('/user/auth', [UserController::class,'auth'])->name('user.auth');
 
 Route::get('/user/forgotpassword', [UserController::class,'forgotpassword'])->name('user.forgotpassword');
 Route::post('/user/resetpassword', [UserController::class,'resetpassword'])->name('user.resetpassword');
+<<<<<<< HEAD
+=======
+
+Route::get('/user/{id}/edit', [UserController::class,'edit'])->name('user.edit');
+Route::post('/user/update', [UserController::class,'update'])->name('user.update');
+
+>>>>>>> bfa6ca01209735b98af7174c12210f7ac0236c1d
