@@ -12,4 +12,10 @@ class UserController extends Controller
         return view('users.register');
     }
 
+    public function login(Request $request)
+    {
+
+        return view('users.login');
+    }
+
 }

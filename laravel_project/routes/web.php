@@ -20,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/user/register', [UserController::class,'register'])->name('user.register');
+Route::get('/user/login', [UserController::class,'login'])->name('user.login');
