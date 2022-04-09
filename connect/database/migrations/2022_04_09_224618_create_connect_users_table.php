@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('user_email')->unique();
             $table->string('user_password');
             $table->string('user_gender');
-            $table->integer('user_mobile');
+            $table->string('user_mobile')->unique();
             $table->timestamps();
         });
     }
