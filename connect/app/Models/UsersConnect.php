@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class UsersConnect extends Model
 {
     use HasFactory;
+    protected $table = 'users_connect';
 }
