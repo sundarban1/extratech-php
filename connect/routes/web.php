@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UsersConnectController;
+use App\Models\UsersConnect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [UsersConnectController::class, 'index'])->name('user_index');
+Route::get('/register', [UsersConnectController::class, 'register'])->name('user_register');

@@ -1,0 +1,26 @@
+
+.main-header{
+    background-color: #222222;
+    color: lightgray;
+    text-align: center;
+    padding: 3%;
+}
+.homepage-main-header {
+    background-color: #222222;
+    color: lightgray;
+    padding: 3%;
+}
+.homepage-main-header strong,
+.main-header strong a{
+    color: lightblue;
+}
+.container {
+    width: 400px;
+}
+.container h1 {
+    text-align: center;
+}
+.nav-link {
+    color: black;
+    font-weight: bold;
+}
