@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\UsersConnectController;
+use App\Http\Controllers\UsersLoginController;
+use App\Http\Controllers\UsersRegisterController;
 use App\Models\UsersConnect;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [UsersConnectController::class, 'index'])->name('user_index');
-Route::get('/register', [UsersConnectController::class, 'register'])->name('user_register');
+Route::get('/', [UsersLoginController::class, 'index'])->name('user_index');
+Route::post('/auth', [UsersLoginController::class, 'auth'])->name('user_auth');
+
+
+Route::get('/register', [UsersRegisterController::class, 'register'])->name('user_register');
+Route::post('/store', [UsersRegisterController::class, 'store'])->name('user_store');

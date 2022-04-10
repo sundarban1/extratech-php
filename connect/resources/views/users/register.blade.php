@@ -2,7 +2,7 @@
 @section('content')
 <div class="container border p-5 my-3 text-darkgray">
     <h2 class="text-center">Sign Up</h2>
-    <form action="/action_page.php" method="POST">
+    <form action="{{ route('user_store') }}" method="POST">
         <div class="form-group mt-4">
             <input type="text" class="form-control" id="first-name" placeholder="First Name" name="first-name">
         </div>
