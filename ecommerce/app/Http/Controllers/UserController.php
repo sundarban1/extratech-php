@@ -143,8 +143,6 @@ class UserController extends Controller
 
         return view('users.view')->with($data);
     }
-<<<<<<< HEAD
-=======
 
     public function edit($id){
 
@@ -191,5 +189,4 @@ class UserController extends Controller
  
     }
 
->>>>>>> bfa6ca01209735b98af7174c12210f7ac0236c1d
 }

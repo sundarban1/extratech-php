@@ -35,4 +35,35 @@
     </form>
     <p class="text-center">Dont 'have a account? <a href="{{route('user.register')}}">Register</a></p>
 </div>
+<script>
+    $(document).ready(function () {
+
+    $("#login-btn").click(function () {
+        var email = $('#email').val();
+        var password = $('#password').val();
+       
+
+        if (!validateEmail(email)) {
+
+            alert('Invalid email address');
+            return false;
+
+        }
+
+        if(password == ''){
+            alert('Password cannot be empty');
+            return false;
+        }
+
+        return true;
+
+    })
+
+    function validateEmail($email) {
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailReg.test($email);
+    }
+
+    });
+</script>
 @stop
