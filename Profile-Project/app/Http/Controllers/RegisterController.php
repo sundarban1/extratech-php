@@ -127,7 +127,23 @@ class RegisterController extends Controller
             'email' => 'unique:users,email,' . $id,
             'phoneNumber' => 'min:10|required',
             'dateofbirth' => 'required',
+            'profile_picture' => 'image|nullable|max:1999',
+
+
         ]);
+        
+        if ($request->hasFile('profile_picture')) {
+            //Get filename with the extension
+            $fileNameWithExt = $request->file('profile_picture')->getClientOriginalName();
+            //Get just filename\
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            //filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //upload the picture 
+            $path = $request->file('profile_picture')->storeAs('public/profile_pictures', $fileNameToStore);
+        }
 
         $user = User::find($id);
         $user->firstName = $request->input('firstName');
@@ -136,6 +152,9 @@ class RegisterController extends Controller
         $user->gender = $request->input('gender');
         $user->mobile = $request->input('phoneNumber');
         $user->dateofbirth = $request->input('dateofbirth');
+        if ($request->hasFile('profile_picture')) {
+            $user->profile_picture = $fileNameToStore;
+        }
         $user->save();
         Session::flash('message', 'You have updated Successfully.');
         return view('users.myProfileupdate', ['user' => $user]);

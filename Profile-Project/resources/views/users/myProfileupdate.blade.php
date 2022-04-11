@@ -11,7 +11,7 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="font-weight: bold">Update Your Profile</h3>
 
 
-                        <form action="{{ route('update') }}" method="POST">
+                        <form action="{{ route('update') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @if (session()->has('message'))
@@ -121,39 +121,27 @@
 
                                 </div>
                             </div>
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col-md-6 mb-4 pb-2">
 
-                                    <div class="form-outline">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" name="password" value="{{}}"
-                                            class="form-control form-control-lg"
-                                            class="@error('password') is-invalid @enderror">
-                                        @error('password')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-
-                                    </div>
-
+                                    <label for="profile_picture" class="form-label">Change your picture</label>
+                                    <input class="form-control form-control-lg" id="profile_picture" name="profile_picture"
+                                        value="{{ $user->profile_picture }}" type="file"
+                                        class="@error('profile_picture') is-invalid @enderror">
+                                    @error('profile_picture')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-4 pb-2">
-
-                                    <div class="form-outline">
-                                        <label class="form-label" for="password">Confirm Password</label>
-                                        <input type="password" id="confirm_password" class="form-control form-control-lg"
-                                            name="password_confirmation">
-
-
-                                    </div>
-
-                                </div> --}}
-                            {{-- </div> --}}
-
+                                    <img src="/storage/profile_pictures/{{ $user->profile_picture }}"
+                                        style="width:100%; " alt="{{ $user->profile_picture }}">
+                                </div>
+                            </div>
 
 
                             <div class="mt-4 pt-2">
-                                <input class="btn btn-primary btn-lg" type="submit" name="submit_update"
-                                    id="submit_register" value="Update" />
+                                <input class="btn btn-primary btn-lg" type="submit" name="submit_update" id="submit_update"
+                                    value="Update" />
 
                             </div>
 

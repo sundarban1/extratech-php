@@ -34,8 +34,8 @@
             </div> --}}
     <div class="d-flex justify-content-center align-items-center">
         <div class="card" style="background-color: rgb(0, 255, 170);">
-            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="card-img-top rounded-circle">
-            <div class="card-body" style="background-color: aquamarine;">
+            <img src="/storage/profile_pictures/{{ $user->profile_picture }}" alt="" class="card-img-top rounded-circle">
+            <div class="card-body" style="background-color: aquamarine; ">
                 <h2 class="card-title">{{ $user->firstName }} {{ $user->lastName }}</h2>
                 <p class="card-text">Hi, I am {{ $user->firstName }}{{ $user->lastName }}. I am interested in
                     Lorem
