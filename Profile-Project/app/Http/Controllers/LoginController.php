@@ -35,7 +35,6 @@ class LoginController extends Controller
             $db_Password = $User->password;
 
             if (Hash::check($password, $db_Password)) {
-                 // select * from users;
                 return view('users.myProfile', ['user' => $User]);
             } else {
 

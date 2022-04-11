@@ -29,3 +29,5 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('myProfile/update', [RegisterController::class, 'update'])->name('update');
 Route::get('myProfile/update/{id}', [RegisterController::class, 'edit'])->name('edit');
+
+
