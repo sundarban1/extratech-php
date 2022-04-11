@@ -36,10 +36,28 @@ class RegisterController extends Controller
                 'confirm_password' => '',
                 'phoneNumber' => 'min:10|required',
                 'dateofbirth' => 'required',
+                'profile_picture' => 'image|nullable|max:1999',
+
 
 
             ]
         );
+
+        //Handle file upload
+        if ($request->hasFile('profile_picture')) {
+            //Get filename with the extension
+            $fileNameWithExt = $request->file('profile_picture')->getClientOriginalName();
+            //Get just filename\
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            //filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //upload the picture 
+            $path = $request->file('profile_picture')->storeAs('public/profile_pictures', $fileNameToStore);
+        } else {
+            $fileNameToStore = "noimage.jpg";
+        }
         $users = new User();
         $users->firstName = $request->firstName;
         $users->lastName = $request->lastName;
@@ -48,6 +66,8 @@ class RegisterController extends Controller
         $users->gender = $request->gender;
         $users->mobile = $request->phoneNumber;
         $users->dateofbirth = $request->dateofbirth;
+        $users->profile_picture = $fileNameToStore;
+
         $users->save();
         return redirect()->to('/register')->with('message', 'You have sucessfully registered.');
     }

@@ -11,7 +11,7 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="font-weight: bold">Registration Form</h3>
 
 
-                        <form action="{{ route('register') }}" method="POST">
+                        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @if (session()->has('message'))
@@ -153,6 +153,16 @@
 
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <label for="profile_picture" class="form-label">Upload your picture</label>
+                                    <input class="form-control form-control-lg" id="profile_picture" name="profile_picture"
+                                        type="file" class="@error('profile_picture') is-invalid @enderror">
+                                    @error('profile_picture')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
