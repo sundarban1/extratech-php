@@ -25,7 +25,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $validation = $request->validate(
             [
                 'first_name' => 'required|max:10',
@@ -33,23 +32,43 @@ class UserController extends Controller
                 'email' => 'unique:users,email',
                 'password' => 'required|min:6|max:10|confirmed',
                 'gender' => 'required|in:Male,Female,Other',
-                'mobile' => 'required|digits_between:10,10|unique:users,mobile'
+                'mobile' => 'required|digits_between:10,10|unique:users,mobile',
+          //     'image' => 'required|images|mimes:jpeg,png,jpg|max:2048',
             ]
         );
 
         //store data to the databse
 
-        $user = new Users();
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->gender = $request->input('gender');
-        $user->mobile = $request->input('mobile');
-        if ($user->save()) {
-            Session::flash('message', 'You have registered Successfully.');
-            return redirect()->route('user.register');
+               
+            $user = new Users();
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->gender = $request->input('gender');
+            $user->mobile = $request->input('mobile');
+        //    $user->image = $request->file('image')->getClientOriginalName();
+    
+
+        $path = public_path('tmp/uploads');
+
+        if (!file_exists($path) ) {
+            mkdir($path, 0777, true); // setting permission to folder
         }
+
+        $file = $request->file('image');
+
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+ 
+
+            $user->image = $fileName;
+            if($user->save()){
+                $file->move($path, $fileName);
+                        
+                Session::flash('message', 'You have registered Successfully.');
+                return redirect()->route('user.register');
+            }
+        
     }
 
     public function login()
@@ -186,7 +205,5 @@ class UserController extends Controller
         
        Session::flash('message', 'You have registered Successfully.');
        return view('users.edit',['user'=>$user]);
- 
     }
-
 }

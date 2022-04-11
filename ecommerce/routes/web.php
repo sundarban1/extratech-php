@@ -32,3 +32,4 @@ Route::post('/user/resetpassword', [UserController::class,'resetpassword'])->nam
 Route::get('/user/{id}/edit', [UserController::class,'edit'])->name('user.edit');
 Route::post('/user/update', [UserController::class,'update'])->name('user.update');
 
+

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <div class="login-form">
-    <form action="{{route('user.store')}}" method="post">
+    <form action="{{route('user.store')}}" method="post" enctype="multipart/form-data">
         @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -38,6 +38,9 @@
         </div>
         <div class="form-group">
             <input name="mobile" type="text" class="form-control" placeholder="Mobile" required="required">
+        </div>
+        <div class="form-group">
+            <input name="image" type="file" class="form-control" placeholder="Upload Image" required="required">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Register</button>

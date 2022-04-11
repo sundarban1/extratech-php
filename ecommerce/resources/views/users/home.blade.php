@@ -18,6 +18,7 @@
                       <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Mobile</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Gender</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Image</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Created At</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Actions</th>
                     </tr>
@@ -41,6 +42,9 @@
                       </td>
                       <td>
                       <span class="text-muted">{{$user->gender}}</span><br>
+                      </td>
+                      <td>
+                      <span class="text-muted"><img src="{{URL::asset('/tmp/uploads/'. $user->image)}}" alt="image" width="100" height="100"></span><br>
                       </td>
                       <td>
                       <span class="text-muted">{{$user->created_at}}</span><br>
