@@ -46,6 +46,6 @@ class UsersForgotPassword extends Controller
         else {
             Session::flash('autherror', 'This email user does not exist.');
             return redirect()->route('user_forgotpassword');
-        }`
+        }
     }
 }
