@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UpdateMail;
 use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
@@ -131,7 +133,7 @@ class RegisterController extends Controller
 
 
         ]);
-        
+
         if ($request->hasFile('profile_picture')) {
             //Get filename with the extension
             $fileNameWithExt = $request->file('profile_picture')->getClientOriginalName();
@@ -155,9 +157,22 @@ class RegisterController extends Controller
         if ($request->hasFile('profile_picture')) {
             $user->profile_picture = $fileNameToStore;
         }
-        $user->save();
-        Session::flash('message', 'You have updated Successfully.');
-        return view('users.myProfileupdate', ['user' => $user]);
+        if ($user->save()) {
+            $email = $user->email;
+            $name = $user->firstName;
+            $image = env('APP_URL') . "/storage/profile_pictures/{{$user->profile_picture}}";
+
+            $mailData = [
+                'title' => 'Notification',
+                'body' => 'Hi, ' . $name . ' your profile picture is updated',
+                'name' => $name,
+                'image' => $image,
+            ];
+
+            Mail::to($email)->send(new UpdateMail($mailData));
+            Session::flash('message', 'You have updated Successfully.');
+            return view('users.myProfileupdate', ['user' => $user]);
+        }
     }
 
     /**
